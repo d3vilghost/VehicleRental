@@ -1,0 +1,43 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Sign in - Voler Admin Dashboard</title>
+            <link rel="stylesheet" href="{% static 'AdminStatic/assets/css/bootstrap.css' %} ">
+         <link rel="shortcut icon" href="{% static 'AdminStatic/assets/images/favicon.svg' %}" type="image/x-icon">
+         <link rel="stylesheet" href="{% static 'AdminStatic/assets/css/app.css' %} ">
+         <link rel="stylesheet" href="{% static 'AdminStatic/assets/css/app.css' %} ">
+         <link rel="stylesheet" href="{% static 'AdminStatic/assets/css/choice-register.css' %}">
+        </head>
+        
+        <body>
+            <div id="auth">
+                <div class="card">
+                        <div class="card-body">
+                            <div class="text-center mb-5">
+                                <img src="{% static 'AdminStatic/assets/images/logo2.png' %}" height="48" class='mb-4'>
+                                <h3>User Selection</h3>
+
+                            </div>
+                            
+                           <div class="fa fa-align-center">
+                               <p class='paragrph'>How do You Want To Register , Please select the option to be </p>
+                               <div id='selection'>
+                                    <span> <a href="/ownersignup" target="_blank" rel="noopener noreferrer"><button type="button" class="btn btn-outline-primary">Owner</button></a>
+                                            Or
+                                    <a href="/register" target="_blank" rel="noopener noreferrer"><button type="button" class="btn btn-outline-primary">User</button></a></span>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+            </div>
+                          
+            <script src="{% static 'assets/js/feather-icons/feather.min.js' %}"></script>
+            <script src="{% static 'assets/js/app.js' %} "></script>
+            <script src="{% static 'assets/js/main.js' %} "></script>
+        </body>
+</html>

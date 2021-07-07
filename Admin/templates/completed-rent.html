@@ -1,0 +1,106 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<!-- Hoverable rows start -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <form action="/completed-rent/" method="POST">
+                {% csrf_token %}
+                <label>Search Booking ID : </label>
+                <input class="form-group" placeholder="search here.." type="text" name="search" />
+            </form>
+            <div class="card-content">
+
+                <!-- table hover -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px;">BOOKING ID</th>
+                                <th style="width: 10px;">VEHICLE NAME</th>
+                                <th style="width: 30px;">VEHICLE NUMBER</th>
+                                <th style="width: 10px;">VEHICLE IMAGE</th>
+                                <th style="width: 10px;">OWNER NAME</th>
+                                <th style="width: 10px;">PRICE</th>
+                                <th style="width: 10px;">PAID/UNPAID</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if vehicle %}
+                            {% for v in vehicle %}
+                            <tr>
+                                <td class="text-bold-500" style="width: 10px;">{{v.booking_id}}</td>
+                                <td class="text-bold-500" style="width: 30px;">{{v.vehicle.name}}</td>
+                                <td class="text-bold-500" style="width: 30px;">{{v.vehicle.vehiclenumber}}</td>
+                                <td>
+                                    {% if v.vehicle.image %}
+                                    <a href="{{v.vehicle.image.url}}" target="_blank">
+                                        <img src="{{v.vehicle.image.url}}" height="50" width="50" />
+                                    </a>
+                                    {% else %}
+                                    No Image Added
+                                    {% endif %}
+                                </td>
+                                <td style="width: 20px;">{{v.vehicle.user.user.first_name}}
+                                    {{v.vehicle.user.user.last_name}}</td>
+                                <td style="width: 10px;">{{v.total_price}}</td>
+                                <td style="width: 5px;">{{v.paid_status}}</td>
+                                <td style="width: 5px;">{{v.status}}</td>
+                                <td>
+                                    <a href="/track/{{v.id}}/">track</a>
+                                    {% if request.user.userprofile_set.first.userType == "Admin" %}
+                                    <a href="/delete-booking/{{v.id}}/" style="color: red;">delete</a>
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            No Vehicle Added yet
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    {% if vehicle.has_other_pages %}
+                    <ul class="pagination" style="width: 100px;">
+                        {% if vehicle.has_previous %}
+                        <li><a href="?page={{ vehicle.previous_page_number }}">&laquo;</a></li>&nbsp;
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in vehicle.paginator.page_range %}
+                        {% if vehicle.number == i %}
+                        <li class="active"><span>&nbsp;{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}&nbsp;
+                        {% endfor %}
+                        {% if vehicle.has_next %}
+                        <li><a href="?page={{ vehicle.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hoverable rows end -->
+<footer>
+    <div class="footer clearfix mb-0 text-muted">
+        <div class="float-left">
+
+        </div>
+        <div class="float-right">
+
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<!-- Hoverable rows start -->
+<div class="row" id="table-hover-row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-content">
+                <div class="card-body">
+                    <form action="/available-vehicle/" method="POST">
+                        {% csrf_token %}
+                        <label>Search Vehicle : </label>
+                        <input class="form-group" placeholder="search here.." type="text" name="search" />
+                    </form>
+                </div>
+                <!-- table hover -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px;">VEHICLE ID</th>
+                                <th style="width: 10px;">VEHICLE NAME</th>
+                                <th style="width: 10px;">VEHICLE TYPE</th>
+                                <th style="width: 30px;">VEHICLE NUMBER</th>
+                                <th style="width: 10px;">VEHICLE IMAGE</th>
+                                <th style="width: 10px;">OWNER NAME</th>
+                                <th style="width: 10px;">PRICE PER DAY</th>
+
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for v in vehicle %}
+                            <tr>
+                                <td class="text-bold-500" style="width: 10px;">{{v.id}}</td>
+                                <td class="text-bold-500" style="width: 30px;">{{v.name}}</td>
+                                <td class="text-bold-500" style="width: 30px;">{{v.vehicle_type}}</td>
+                                <td class="text-bold-500" style="width: 30px;">{{v.vehiclenumber}}</td>
+                                <td>
+                                    {% if v.image %}
+                                    <a href="{{v.image.url}}" target="_blank"><img src="{{v.image.url}}" height="50"
+                                            width="50" /></a>
+                                    {% else %}
+                                    No Image Added
+                                    {% endif %}
+                                </td>
+                                <td style="width: 30px;">{{v.user.user.first_name}} {{v.user.user.last_name}}</td>
+                                <td style="width: 10px;">{{v.price_per_day}}</td>
+                                <td style="width: 10px;">{{v.status}}</td>
+                                <td>
+                                    <a href="/book-vehicle/{{v.id}}/">book</a>
+
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if vehicle.has_other_pages %}
+                    <ul class="pagination" style="width: 100px;">
+                        {% if vehicle.has_previous %}
+                        <li><a href="?page={{ vehicle.previous_page_number }}">&laquo;</a></li>&nbsp;
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in vehicle.paginator.page_range %}
+                        {% if vehicle.number == i %}
+                        <li class="active"><span>&nbsp;{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}&nbsp;
+                        {% endfor %}
+                        {% if vehicle.has_next %}
+                        <li><a href="?page={{ vehicle.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hoverable rows end -->
+<footer>
+    <div class="footer clearfix mb-0 text-muted">
+        <div class="float-left">
+
+        </div>
+        <div class="float-right">
+
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+{% endblock %}

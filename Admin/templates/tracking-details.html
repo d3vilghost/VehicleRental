@@ -1,0 +1,130 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                {% if details.vehicle.image %}
+                <img src="{{details.vehicle.image.url}}" height="50" width="50"/>
+                {% else %}
+                <img src=""
+                    alt="No Image added" />
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h5>
+                    Type: {{details.vehicle.vehicle_type.name}}
+                </h5>
+                
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <div class="col-md-4">
+        <div class="tab-content profile-tab" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Booking ID</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.booking_id}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Booking By</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.user.user.first_name}} {{details.user.user.last_name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.user.user.email}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Phone Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.user.contact_No}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Aadhar Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.aadhar_number}}
+                            <a href="{{details.id_proof.url}}" target="_blank">
+                                <img src="{{details.id_proof.url}}" height="20" width="20"/>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Book Day</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.book_day}}</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Book From</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.book_from}}</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Book Upto</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.book_to}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Total Price</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.total_price}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.status}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Paid Status</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{details.paid_status}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% endblock %}

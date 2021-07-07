@@ -1,0 +1,100 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                {% if details.profilePicture %}
+                <img src="{{details.profilePicture.url}}" height="80" width="80">
+                {% else %}
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+                    alt="" />
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h5>
+                    {{details.user.first_name}} {{details.user.last_name}}
+                </h5>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="tab-content profile-tab" id="myTabContent">
+            <form action="/edit-single-user/{{details.id}}/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if msg %}
+                <p style="color: red;">{{msg}}</p>
+                {% endif %}
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="first_name" value='{{details.user.first_name}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Last Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="last_name" value='{{details.user.last_name}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" name="email" value='{{details.user.email}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name='contact'
+                                value='{{details.contact_No}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="address" value='{{details.address}}'
+                                required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>DOB</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" name="dob" value="{{details.dob |date:'Y-m-d'}}"
+                                required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Profile Picture</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="file" name="pic" />
+                        </div>
+                    </div><br>
+                </div>
+                <input class="btn btn-success" type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Borderless table end -->
+
+    <!-- Hoverable rows start -->
+    <div class="row" id="table-hover-row">
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-content">
+
+                    <div class="card-body">
+                        <h5>Add Vehicle</h5>
+                    </div>
+
+
+                    <form action="/add-vehicle/" method="POST" class="form-body" style="padding: 20px;" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if msg %}
+                        <p style="color: red;">{{msg}}</p>
+                        {% endif %}
+                        <div>
+
+                            <div class="col-md-6">
+                                <label>Vehicle Added By</label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input class="form-control"
+                                    value="{{request.user.first_name}} {{request.user.last_name}}" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Select Vehicle Type</label>
+                            </div>
+                            <select class="col-md-4 form-group" name='vehicle_type' required style="height: 30px; overflow-y: scroll;">
+                                {% for t in types %}
+                                <option class="form-control" value="{{t.id}}">{{t}}</option>
+                                {% endfor %}
+                            </select>
+                            <br><br>
+                            <div class="col-md-6">
+                                <label>Enter Vehicle Name</label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="text" id="email-id" class="form-control" name="name"
+                                    placeholder="Enter Vehicle Name *" required>
+                            </div>
+                            <br>
+                            <div class="col-md-6">
+                                <label>Enter Vehicle Number</label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="text" id="email-id" class="form-control" name="vehicle_number"
+                                    placeholder="Enter Vehicle Number *" required>
+                            </div>
+                            <br>
+                            <div class="col-md-6">
+                                <label>Enter Vehicle Image</label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="file" id="email-id" class="form-control" name="image" required>
+                            </div>
+                            <br>
+                             <div class="col-md-6">
+                                <label>Price Per Day</label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="text" id="email-id" class="form-control" name="price"
+                                    placeholder="Enter Price Per Day *" required>
+                            </div>
+                            <br>
+                            <div class="col-sm-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+{% endblock %}

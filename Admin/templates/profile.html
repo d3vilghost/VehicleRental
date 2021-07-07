@@ -1,0 +1,96 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                {% if request.user.userprofile_set.first.profilePicture %}
+                <img src="{{request.user.userprofile_set.first.profilePicture.url}}" />
+                {% else %}
+                <img src="{% static 'AdminStatic/assets/images/avatar/avatar-s-1.png' %}"
+                    alt="" />
+                {% endif %}
+                <a href="/edit-profile/">
+                    <div class="file btn btn-lg btn-primary">
+                        Edit Profile
+                        <input type="button" value="Edit Profile" />
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h5>
+                    {{request.user.first_name}} {{request.user.last_name}}
+                </h5>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="tab-content profile-tab" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>User Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.username}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.email}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>User Type</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.userprofile_set.first.userType}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Phone</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.userprofile_set.first.contact_No}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Address</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.userprofile_set.first.address}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>DOB</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{request.user.userprofile_set.first.dob}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% endblock %}

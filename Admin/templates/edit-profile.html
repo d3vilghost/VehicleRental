@@ -1,0 +1,100 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                {% if request.user.userprofile_set.first.profilePicture %}
+                <img src="{{request.user.userprofile_set.first.profilePicture.url}}">
+                {% else %}
+                <img src="{% static 'AdminStatic/assets/images/avatar/avatar-s-1.png' %}"
+                    alt="" />
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h5>
+                    {{request.user.first_name}} {{request.user.last_name}}
+                </h5>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="tab-content profile-tab" id="myTabContent">
+            <form action="/edit-profile/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if msg %}
+                <p style="color: red;">{{msg}}</p>
+                {% endif %}
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="first_name" value='{{request.user.first_name}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Last Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="last_name" value='{{request.user.last_name}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" name="email" value='{{request.user.email}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name='contact'
+                                value='{{request.user.userprofile_set.first.contact_No}}' required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="address" value='{{request.user.userprofile_set.first.address}}'
+                                required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>DOB</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" name="dob" value="{{request.user.userprofile_set.first.dob |date:'Y-m-d'}}"
+                                required />
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Profile Picture</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="file" name="pic" />
+                        </div>
+                    </div><br>
+                </div>
+                <input class="btn btn-success" type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+{% load static %}
+
+<section id="basic-vertical-layouts">
+    <div class="row match-height">
+        <div class="col-md-8 col-12">
+            <div class="card">
+
+                <div class="card-content">
+                    <div class="card-body">
+                        <form action="/edit-booking/{{details.id}}/" method="POST" class="form form-vertical"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% if msg %}
+                            <p style="color: red;">{{msg}}</p>
+                            {% endif %}
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Booking by User </label>
+                                            <input type="text" id="first-name-vertical" class="form-control"
+                                                name="fname"
+                                                value="{{details.user.user.first_name}} {{details.user.user.last_name}}" disabled>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Book Vehicle Type</label>
+                                            <input type="text" id="first-name-vertical" class="form-control"
+                                                name="fname" value="{{details.vehicle.vehicle_type.name}}" disabled>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Book Vehicle Name</label>
+                                            <input type="text" id="first-name-vertical" class="form-control"
+                                                name="fname" value="{{details.vehicle.name}}" disabled>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Book Vehicle Number</label>
+                                            <input type="text" id="first-name-vertical" class="form-control"
+                                                name="fname" value="{{details.vehicle.vehiclenumber}}" disabled>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Price Per Day</label>
+                                            <input type="text" id="first-name-vertical" class="form-control"
+                                                name="fname" value="{{details.vehicle.price_per_day}}" disabled>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Book For Number of Day's *</label>
+                                        <input type="number" id="first-name-vertical" class="form-control" name="days"
+                                           value="{{details.book_day}}" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Book From Date *</label>
+                                        <input type="date" id="first-name-vertical" class="form-control" name="book_from"
+                                           value="{{details.book_from | date:'Y-m-d'}}" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Book upto Date *</label>
+                                        <input type="date" id="first-name-vertical" class="form-control" name="book_to"
+                                           value="{{details.book_to | date:'Y-m-d'}}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Enter Aadhar Card Number *</label>
+                                        <input type="number" maxlength="12" minlength="12" id="first-name-vertical"
+                                            class="form-control" value="{{details.aadhar_number}}" name="aadhar" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Enter Aadhar Card Proof *</label>
+                                        <input type="file" class="form-control" name="id_proof">
+                                    </div>
+                                    {% if request.user.userprofile_set.first.userType != "Public" %}
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Paid Status : </label>
+                                        <select class="form-control" name="paid_status">
+                                            <option value="{{details.paid_status}}">{{details.paid_status}}</option>
+                                            {% if details.paid_status == "UnPaid" %}
+                                            <option>Paid</option>
+                                            {% else %}
+                                            <option>UnPaid</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Current Status : </label>
+                                        <select class="form-control" name="status">
+                                            <option value="{{details.status}}">{{details.status}}</option>
+                                            {% if details.status == "Pending" %}
+                                            <option>Approved</option>
+                                            <option>Rejected</option>
+                                            <option>On Rent</option>
+                                            <option>Completed Rent</option>
+                                            {% endif %}
+                                            {% if details.status == "Approved" %}
+                                            <option>Pending</option>
+                                            <option>Rejected</option>
+                                            <option>On Rent</option>
+                                            <option>Completed Rent</option>
+                                            {% endif %}
+                                            {% if details.status == "Rejected" %}
+                                            <option>Pending</option>
+                                            <option>Approved</option>
+                                            <option>On Rent</option>
+                                            <option>Completed Rent</option>
+                                            {% endif %}
+                                            {% if details.status == "On Rent" %}
+                                            <option>Pending</option>
+                                            <option>Approved</option>
+                                            <option>Rejected</option>
+                                            <option>Completed Rent</option>
+                                            {% endif %}
+                                            {% if details.status == "Completed Rent" %}
+                                            Already Completed
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Book</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+{% endblock %}
