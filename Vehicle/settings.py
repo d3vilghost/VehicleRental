@@ -135,4 +135,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #Activating Django-Heroku
-django_heroku.settings(locals())
+django_heroku.settings(locals(),staticfiles=False)
