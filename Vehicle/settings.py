@@ -26,7 +26,7 @@ SECRET_KEY = '72stbz&y(kq9_!=ehopd!bm%3k$@m#qk0^#pjh@4=2nq*d)&@c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [' https://rentvehicleservice.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -135,4 +135,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #Activating Django-Heroku
-django_heroku.settings(local)
+django_heroku.settings(locals())
