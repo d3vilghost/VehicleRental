@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '72stbz&y(kq9_!=ehopd!bm%3k$@m#qk0^#pjh@4=2nq*d)&@c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =False
 
 ALLOWED_HOSTS = []
 
@@ -125,9 +126,13 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'krishnabajpayee00@gmail.com'
 EMAIL_HOST_PASSWORD = 'wqdfhjjlvdcksgix'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#Activating Django-Heroku
+django_heroku.settings(local)
