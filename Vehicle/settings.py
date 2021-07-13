@@ -131,6 +131,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -140,5 +141,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #Activating Django-Heroku
-django_heroku.settings(locals(),staticfiles=False)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+django_heroku.settings(locals())
